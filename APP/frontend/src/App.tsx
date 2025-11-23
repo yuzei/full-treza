@@ -5,6 +5,13 @@ import LoginOptions from "./pages/LoginOptions";
 import RegisterOptions from "./pages/RegisterOptions";
 import LoginScreen from "./pages/LoginScreen";
 import RegisterScreen from "./pages/RegisterScreen";
+import OnboardingWelcome from "./pages/OnboardingWelcome";
+import OnboardingQuestions from "./pages/OnboardingQuestions";
+import OnboardingDone from "./pages/OnboardingDone";
+import ProtectedRoute from "./components/ProtectedRoute";
+import BlockIfOnboarded from "./components/BlockIfOnboarded";
+import HomeScreen from "./pages/HomeScreen";
+
 
 const App: React.FC = () => {
   return (
@@ -14,6 +21,11 @@ const App: React.FC = () => {
       <Route path="/register-options" element={<RegisterOptions />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+      <Route path="/onboarding/welcome" element={<BlockIfOnboarded> <OnboardingWelcome /> </BlockIfOnboarded>} />
+      <Route path="/onboarding/questions" element={ <BlockIfOnboarded> <OnboardingQuestions /> </BlockIfOnboarded>} />
+      <Route path="/onboarding/done" element={<BlockIfOnboarded> <OnboardingDone /> </BlockIfOnboarded>} />
+      <Route path="/home" element={<ProtectedRoute> <HomeScreen/> </ProtectedRoute>}/>
+
     </Routes>
   );
 };
