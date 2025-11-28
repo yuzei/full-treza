@@ -11,6 +11,8 @@ import OnboardingDone from "./pages/OnboardingDone";
 import ProtectedRoute from "./components/ProtectedRoute";
 import BlockIfOnboarded from "./components/BlockIfOnboarded";
 import HomeScreen from "./pages/HomeScreen";
+import AccountScreen from "./pages/AccountScreen";
+import MyTripsScreen from "./pages/MyTripsScreen";
 
 
 const App: React.FC = () => {
@@ -25,6 +27,8 @@ const App: React.FC = () => {
       <Route path="/onboarding/questions" element={ <BlockIfOnboarded> <OnboardingQuestions /> </BlockIfOnboarded>} />
       <Route path="/onboarding/done" element={<BlockIfOnboarded> <OnboardingDone /> </BlockIfOnboarded>} />
       <Route path="/home" element={<ProtectedRoute> <HomeScreen/> </ProtectedRoute>}/>
+      <Route path="/account" element={<ProtectedRoute> <AccountScreen/> </ProtectedRoute>}/>
+      <Route path="/mytrips" element={<ProtectedRoute> <MyTripsScreen /> </ProtectedRoute>}/>
 
     </Routes>
   );

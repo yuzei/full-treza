@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import fondoActivo from "../assets/fondo-activo.png";
 
@@ -12,6 +13,7 @@ import userIcon from "../assets/icons/nav-user.svg";
 
 const HomeScreen: React.FC = () => {
   const [username, setUsername] = useState("User");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -86,11 +88,18 @@ const HomeScreen: React.FC = () => {
           <button className="w-7 h-7">
             <img src={walletIcon} alt="Wallet" className="w-full h-full" />
           </button>
-          <button className="w-7 h-7">
-            <img src={worldIcon} alt="World" className="w-full h-full" />
+          <button 
+          className="w-7 h-7"
+          onClick={() => navigate("/mytrips")}
+          >
+          <img src={worldIcon} alt="World" className="w-full h-full" />
           </button>
-          <button className="w-7 h-7">
-            <img src={userIcon} alt="Profile" className="w-full h-full" />
+          {/* dentro del nav de HomeScreen*/}
+          <button
+          className="w-7 h-7"
+          onClick={() => navigate("/account")}
+          >
+          <img src={userIcon} alt="Profile" className="w-full h-full" />
           </button>
         </div>
       </nav>
