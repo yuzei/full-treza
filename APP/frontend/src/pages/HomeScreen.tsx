@@ -56,7 +56,9 @@ const HomeScreen: React.FC = () => {
         </div>
 
         {/* Icono mapa header */}
-        <button className="w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center">
+        <button className="w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center"
+         onClick={() => navigate("/events")}
+          >
           <img src={headerMapIcon} alt="Map" className="w-6 h-6" />
         </button>
       </header>
@@ -79,13 +81,19 @@ const HomeScreen: React.FC = () => {
       {/* NAV INFERIOR */}
       <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-sm">
         <div className="bg-white/95 rounded-3xl shadow-xl px-6 py-3 flex justify-between items-center">
-          <button className="w-7 h-7">
+          <button className="w-7 h-7"
+           onClick={() => navigate("/travel")}
+          >
             <img src={planeIcon} alt="Explore" className="w-full h-full" />
           </button>
-          <button className="w-7 h-7">
+          <button className="w-7 h-7"
+           onClick={() => navigate("/search")}
+          >
             <img src={searchIcon} alt="Search" className="w-full h-full" />
           </button>
-          <button className="w-7 h-7">
+          <button className="w-7 h-7"
+           onClick={() => navigate("/wallet")}
+          >
             <img src={walletIcon} alt="Wallet" className="w-full h-full" />
           </button>
           <button 

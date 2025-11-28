@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabase";
 
 import fondoActivo from "../assets/fondo-activo.png";
 
-// Íconos (mismos que el resto de pantallas)
+// Íconos
 import headerMapIcon from "../assets/icons/header-map.svg";
 import planeIcon from "../assets/icons/nav-plane.svg";
 import searchIcon from "../assets/icons/nav-search.svg";
@@ -12,26 +12,10 @@ import walletIcon from "../assets/icons/nav-wallet.svg";
 import worldIcon from "../assets/icons/nav-world.svg";
 import userIcon from "../assets/icons/nav-user.svg";
 
-interface AirlineCard {
-  id: number;
-  name: string;
-}
-
-const airlines: AirlineCard[] = [
-  { id: 1, name: "airline 1" },
-  { id: 2, name: "airline 2" },
-  { id: 3, name: "airline 3" },
-  { id: 4, name: "airline 4" },
-  { id: 5, name: "airline 5" },
-  { id: 6, name: "airline 6" },
-  { id: 7, name: "airline 7" },
-  { id: 8, name: "airline 8" },
-  { id: 9, name: "airline 9" },
-];
-
-const WalletScreen: React.FC = () => {
+const SearchScreen: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("User");
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -51,9 +35,18 @@ const WalletScreen: React.FC = () => {
     loadProfile();
   }, []);
 
-  const handleConnect = (airlineName: string) => {
-    // Más adelante: aquí conectas con la API de la aerolínea, OAuth, etc.
-    alert(`Here we will connect your account with ${airlineName} ✈️`);
+  const triggerSearch = () => {
+    if (!query.trim()) {
+      alert("Type a city or place to search 🙂");
+      return;
+    }
+    alert(`Searching trips for: ${query}`);
+  };
+
+  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+    if (e.key === "Enter") {
+      triggerSearch();
+    }
   };
 
   return (
@@ -71,7 +64,7 @@ const WalletScreen: React.FC = () => {
           <div className="w-10 h-10 bg-gray-300 rounded-full" />
           <div className="flex flex-col">
             <span className="text-lg text-black/85 font-semibold">
-              Tickets Wallet
+              Search Time!
             </span>
             <span className="text-xs text-black/60">@{username}</span>
           </div>
@@ -84,46 +77,76 @@ const WalletScreen: React.FC = () => {
         </button>
       </header>
 
-      {/* SUBTEXTO */}
-      <p className="text-center text-sm text-black/70 mb-4">
-        You&apos;re not connected to any airline :c
-      </p>
+      {/* SEARCH BAR */}
+      <div className="mb-4 relative">
+        <input
+          type="text"
+          placeholder="Barcelona"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="w-full bg-white/95 rounded-full py-2.5 pl-4 pr-10 text-sm shadow-md border border-black/5 focus:outline-none focus:ring-2 focus:ring-black/10"
+        />
+        <button
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center"
+          onClick={triggerSearch}
+        >
+          <img src={searchIcon} alt="Search" className="w-full h-full" />
+        </button>
+      </div>
 
-      {/* GRID DE AEROLÍNEAS */}
+      {/* RESULT CARDS MOCK */}
       <main className="flex-1 pb-24 overflow-y-auto">
-        <div className="grid grid-cols-3 gap-3">
-          {airlines.map((airline) => (
-            <button
-              key={airline.id}
-              onClick={() => handleConnect(airline.name)}
-              className="bg-white/92 rounded-2xl shadow-md flex flex-col justify-between items-stretch h-32"
-            >
-              {/* “logo” gris */}
-              <div className="flex-1 bg-gray-200/90 rounded-t-2xl flex items-center justify-center text-[11px] text-black/60 px-1 text-center">
-                {airline.name} logo
-              </div>
-              {/* botón CONNECT */}
-              <div className="py-2 text-center text-xs font-medium text-black/80 bg-white rounded-b-2xl border-t border-black/10">
-                Connect
-              </div>
-            </button>
-          ))}
-        </div>
+        {/* Card 1 */}
+        <section className="bg-white/92 rounded-3xl shadow-lg overflow-hidden mb-4">
+          <div className="w-full h-52 bg-gray-200 flex items-center justify-center text-sm text-black/60">
+            Result card 1 (photo)
+          </div>
+          <div className="px-4 py-2 flex justify-between items-center text-xs text-black/70">
+            <div className="flex gap-2">
+              <span className="px-2 py-0.5 rounded-full border border-black/20">
+                Price
+              </span>
+              <span className="px-2 py-0.5 rounded-full border border-black/20">
+                Duration
+              </span>
+            </div>
+            <span>?D/?N</span>
+          </div>
+        </section>
+
+        {/* Card 2 */}
+        <section className="bg-white/92 rounded-3xl shadow-lg overflow-hidden mb-4">
+          <div className="w-full h-52 bg-gray-200 flex items-center justify-center text-sm text-black/60">
+            Result card 2 (photo)
+          </div>
+          <div className="px-4 py-2 flex justify-between items-center text-xs text-black/70">
+            <div className="flex gap-2">
+              <span className="px-2 py-0.5 rounded-full border border-black/20">
+                Price
+              </span>
+              <span className="px-2 py-0.5 rounded-full border border-black/20">
+                Duration
+              </span>
+            </div>
+            <span>?D/?N</span>
+          </div>
+        </section>
       </main>
 
-      {/* NAV INFERIOR (wallet activo) */}
+      {/* NAV INFERIOR (search activo) */}
       <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 w-[90%] max-w-sm">
         <div className="bg-white/95 rounded-3xl shadow-xl px-6 py-3 flex justify-between items-center">
           <button className="w-7 h-7" onClick={() => navigate("/home")}>
             <img src={planeIcon} alt="Explore" className="w-full h-full" />
           </button>
 
-          <button className="w-7 h-7" onClick={() => navigate("/search")}>
+          {/* Search ACTIVO */}
+          <button className="w-7 h-7 rounded-full border-2 border-[#2da4dc] p-0.5">
             <img src={searchIcon} alt="Search" className="w-full h-full" />
           </button>
 
-          {/* Wallet ACTIVO (borde celeste) */}
-          <button className="w-7 h-7 rounded-full border-2 border-[#2da4dc] p-0.5">
+          <button className="w-7 h-7" onClick={() => navigate("/wallet")}>
             <img src={walletIcon} alt="Wallet" className="w-full h-full" />
           </button>
 
@@ -140,4 +163,4 @@ const WalletScreen: React.FC = () => {
   );
 };
 
-export default WalletScreen;
+export default SearchScreen;

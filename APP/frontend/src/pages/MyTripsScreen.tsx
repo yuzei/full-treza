@@ -71,7 +71,9 @@ const MyTripsScreen: React.FC = () => {
           </div>
         </div>
 
-        <button className="w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center">
+        <button className="w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center"
+            onClick={() => navigate("/events")}
+          >
           <img src={headerMapIcon} alt="Map" className="w-6 h-6" />
         </button>
       </header>

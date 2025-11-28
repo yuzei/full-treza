@@ -14,7 +14,9 @@ import HomeScreen from "./pages/HomeScreen";
 import AccountScreen from "./pages/AccountScreen";
 import MyTripsScreen from "./pages/MyTripsScreen";
 import WalletScreen from "./pages/WalletScreen";
-
+import SearchScreen from "./pages/SearchScreen";
+import Travel from "./pages/TravelCategories";
+import Events from "./pages/EventScreen"
 const App: React.FC = () => {
   return (
     <Routes>
@@ -30,6 +32,10 @@ const App: React.FC = () => {
       <Route path="/account" element={<ProtectedRoute> <AccountScreen/> </ProtectedRoute>}/>
       <Route path="/mytrips" element={<ProtectedRoute> <MyTripsScreen /> </ProtectedRoute>}/>
       <Route path="/wallet" element={<ProtectedRoute> <WalletScreen /> </ProtectedRoute>}/>
+      <Route path="/search" element={<ProtectedRoute> <SearchScreen /> </ProtectedRoute>}/>
+      <Route path="/travel" element={<ProtectedRoute> <Travel /> </ProtectedRoute>}/>
+      <Route path="/travel/:city" element={<ProtectedRoute> <Travel /> </ProtectedRoute>}/>
+      <Route path="/events" element={<ProtectedRoute> <Events /> </ProtectedRoute>}/>
     </Routes>
   );
 };
